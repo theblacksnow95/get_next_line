@@ -6,7 +6,7 @@
 /*   By: emurillo <emurillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 14:40:25 by emurillo          #+#    #+#             */
-/*   Updated: 2024/11/06 17:21:01 by emurillo         ###   ########.fr       */
+/*   Updated: 2024/11/07 18:39:28 by emurillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,28 +21,30 @@
 **
  */
 
+
+
 int	main(void)
 {
 	int		fd;
-	int		cs;
-	char	*c;
+	int		buffer_read;
+	char	*line_buffer;
 
-	c = (char *)calloc(100, sizeof(char));
+	line_buffer = (char *)ft_calloc(BUFFER_SIZE + 1, sizeof(char));
 	fd = open("test.txt", O_RDONLY | O_CREAT);
 	if (fd == -1)
 	{
 		return (printf("error 1"));
 	}
 	printf("Value of 'fd': %d\n\n", fd);
-	cs = read(fd, c, BUFFER_SIZE);
-	printf("first value of read: %d\n", cs);
-	while (cs > 0)
+	buffer_read = read(fd, line_buffer, BUFFER_SIZE);
+	printf("first value of read: %d\n", buffer_read);
+	while (buffer_read > 0)
 	{
-		c[cs] = '\0';
-		printf("\n%d\n", cs);
-		printf("\nbuf -> %s\n", c);
-		cs = read(fd, c, BUFFER_SIZE);
+		line_buffer[buffer_read] = '\0';
+		printf("\n%d\n", buffer_read);
+		printf("\nbuf -> %s\n", line_buffer);
+		buffer_read = read(fd, line_buffer, BUFFER_SIZE);
 	}
-	printf("final value od read(): %d\n", cs);
+	printf("final value of read(): %d\n", buffer_read);
 	close(fd);
 }
