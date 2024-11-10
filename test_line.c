@@ -6,7 +6,7 @@
 /*   By: emurillo <emurillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/09 18:36:11 by emurillo          #+#    #+#             */
-/*   Updated: 2024/11/09 20:50:23 by emurillo         ###   ########.fr       */
+/*   Updated: 2024/11/10 14:53:42 by emurillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,35 @@ char	*fill_line(char *buffer)
 	return (line);
 }
 
+char	*next_line(char *str)
+{
+	int		i;
+	char	*right_line;
+	size_t		len;
+
+	i = 0;
+	if (ft_strrchr(str, '\n'))
+		len = ft_strlen(str) - ft_strlen(ft_strrchr(str, '\n'));
+	else
+		len = ft_strlen(str);
+	right_line = (char *)malloc((int)(ft_strlen(ft_strrchr(str, '\n'))) +2 * sizeof(char));
+	if (!ft_strrchr(str,'\n'))
+		while(str[i++])
+			right_line[i] = str[i];
+	else
+	{
+		while (str[i + len])
+		{
+			right_line[i] = str[i + len];
+			i++;
+		}
+	}
+	right_line[i] = '\0';
+	return (right_line);
+
+}
+
+
 char	*get_line(int fd)
 {
 	char	*left_line;
@@ -47,8 +76,8 @@ char	*get_line(int fd)
 		return (NULL);
 	buffer_text[bytes_read] = '\0';
 	left_line = fill_line(buffer_text);
-	right_line = new_buf(char *str, BUFFER_SIZE);
-	return (left_line);
+	right_line = next_line(buffer_text);
+	return (right_line);
 }
 
 int	main(void)
