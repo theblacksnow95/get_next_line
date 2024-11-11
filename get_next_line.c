@@ -6,7 +6,7 @@
 /*   By: emurillo <emurillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 15:20:57 by emurillo          #+#    #+#             */
-/*   Updated: 2024/11/07 18:39:24 by emurillo         ###   ########.fr       */
+/*   Updated: 2024/11/11 17:06:00 by emurillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,31 +45,7 @@ char	*get_next_line(int fd)
 	return (new_line);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
-{
-	size_t	i;
-	char	*join;
-	size_t	t_len;
-	size_t	j;
 
-	if (!s1)
-		s1 = "\0";
-	if (!s2)
-		s2 = "";
-	i = 0;
-	j = 0;
-	t_len = (ft_strlen(s1) + ft_strlen(s2));
-	join = (char *)malloc((t_len + 1) * sizeof(char));
-	if (join == NULL)
-		return (NULL);
-	while (s1[j])
-		join[i++] = s1[j++];
-	j = 0;
-	while (s2[j])
-		join[i++] = s2[j++];
-	join[i] = '\0';
-	return (join);
-}
 
 
 int	main(void)

@@ -6,59 +6,57 @@
 /*   By: emurillo <emurillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/09 18:36:11 by emurillo          #+#    #+#             */
-/*   Updated: 2024/11/10 14:53:42 by emurillo         ###   ########.fr       */
+/*   Updated: 2024/11/11 17:05:46 by emurillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-
-
 char	*fill_line(char *buffer)
 {
 	int			i;
-	static char	*line;
+	char		*line;
 
 	i = 0;
-	while (buffer[i] && buffer[i] != '\n')
+	while (buffer[i] != '\0' && buffer[i] != '\n')
 		i++;
+	if (buffer[i] == 0 || buffer[1] == 0)
+		return (NULL);
 	line = (char *)malloc(i + 2);
 	if (!line)
 		return (NULL);
-	i = 0;
-	while (buffer[i] && buffer[i] != '\n')
-	{
+	i = -1;
+	while (buffer[++i] && buffer[i] != '\n')
 		line[i] = buffer[i];
-		i++;
-	}
+	if (buffer[i] == '\n')
+		line[i++] = '\n';
 	line[i] = '\0';
 	return (line);
 }
 
 char	*next_line(char *str)
 {
-	int		i;
-	char	*right_line;
-	size_t		len;
+	int			i;
+	char		*right_line;
+	int			j;
 
 	i = 0;
-	if (ft_strrchr(str, '\n'))
-		len = ft_strlen(str) - ft_strlen(ft_strrchr(str, '\n'));
-	else
-		len = ft_strlen(str);
-	right_line = (char *)malloc((int)(ft_strlen(ft_strrchr(str, '\n'))) +2 * sizeof(char));
-	if (!ft_strrchr(str,'\n'))
-		while(str[i++])
-			right_line[i] = str[i];
-	else
+	j = 0;
+	while (str[i] != '\0' && str[i] != '\n')
+		i++;
+	if (!str[i])
 	{
-		while (str[i + len])
-		{
-			right_line[i] = str[i + len];
-			i++;
-		}
+		free(str);
+		return (NULL);
 	}
-	right_line[i] = '\0';
+	right_line = (char *)malloc((int)ft_strlen(str) - i + 1);
+	if (!right_line)
+		return (NULL);
+	i++;
+	while (str[i])
+		right_line[j++] = str[i++];
+	right_line[j] = '\0';
+	free(str);
 	return (right_line);
 
 }
@@ -66,17 +64,25 @@ char	*next_line(char *str)
 
 char	*get_line(int fd)
 {
-	char	*left_line;
-	char	buffer_text[BUFFER_SIZE + 1];
-	char	*right_line;
-	int		bytes_read;
+	static char	*left_line;
+	char		buffer_text[BUFFER_SIZE + 1];
+	char		*right_line;
+	int			bytes_read;
 
-	bytes_read = read(fd, buffer_text, BUFFER_SIZE);
-	if (bytes_read < 0)
-		return (NULL);
-	buffer_text[bytes_read] = '\0';
-	left_line = fill_line(buffer_text);
-	right_line = next_line(buffer_text);
+	left_line = NULL;
+	while (!ft_strchr(left_line, '\n'))
+	{
+		bytes_read = read(fd, buffer_text, BUFFER_SIZE);
+		if (bytes_read < 0)
+			return (NULL);
+		if (bytes_read == 0)
+			break ;
+		buffer_text[bytes_read] = '\0';
+		if (!left_line)
+			left_line = ft_strdup("");
+		left_line = ft_strjoin(left_line, buffer_text);
+	}
+	right_line = fill_line(left_line);
 	return (right_line);
 }
 
@@ -86,16 +92,18 @@ int	main(void)
 	char	*line;
 
 	fd = open("test.txt", O_RDONLY | O_CREAT);
+	if (fd < 0)
+		return (1);
 	line = get_line(fd);
-	printf("%s\n", line);
-	line = get_line(fd);
-	printf("%s\n", line);
-	line = get_line(fd);
-	printf("%s\n", line);
-	line = get_line(fd);
-	printf("%s\n", line);
-	line = get_line(fd);
-	printf("%s\n", line);
+	while ((line))
+	{
+		printf("%s", line);
+		free(line);
+	}
 	close(fd);
 	return (0);
 }
+
+
+
+

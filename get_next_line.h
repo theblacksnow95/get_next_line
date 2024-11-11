@@ -6,7 +6,7 @@
 /*   By: emurillo <emurillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 15:21:43 by emurillo          #+#    #+#             */
-/*   Updated: 2024/11/09 19:10:44 by emurillo         ###   ########.fr       */
+/*   Updated: 2024/11/11 16:28:39 by emurillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,10 @@
 #  define BUFFER_SIZE 20
 # endif
 
-void	*ft_calloc(size_t nitems, size_t size);
-char	*ft_strjoin(char const *s1, char const *s2);
+char	*ft_strdup(char const *string);
+char	*ft_strjoin(char *s1, char *s2);
 size_t	ft_strlen(char const *str);
-char	*ft_strrchr(const char *str, int c);
+char	*ft_strchr(char *str, int search_chr);
+char	*ft_strdup(char const *string);
 
 #endif
