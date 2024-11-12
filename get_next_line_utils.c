@@ -6,7 +6,7 @@
 /*   By: emurillo <emurillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 15:21:49 by emurillo          #+#    #+#             */
-/*   Updated: 2024/11/11 16:28:21 by emurillo         ###   ########.fr       */
+/*   Updated: 2024/11/12 15:52:59 by emurillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ char	*ft_strjoin(char *s1, char *s2)
 	return (join);
 }
 
-char	*ft_substr(char const *s, unsigned int start, size_t len)
+char	*ft_substr(char *s, unsigned int start, size_t len)
 {
 	char	*sub;
 	size_t	i;
@@ -103,9 +103,7 @@ char	*ft_strdup(char const *string)
 	i = 0;
 	cp = (char *)malloc(ft_strlen(string) * sizeof(char) + 1);
 	if (cp == NULL)
-	{
 		return (NULL);
-	}
 	while (string[i])
 	{
 		cp[i] = string[i];
@@ -113,4 +111,20 @@ char	*ft_strdup(char const *string)
 	}
 	cp[i] = '\0';
 	return (cp);
+}
+
+void	*ft_calloc(size_t nitems, size_t size)
+{
+	unsigned char	*arr;
+	size_t			i;
+
+	i = 0;
+	arr = malloc(nitems * size);
+	if (arr == NULL)
+	{
+		return (NULL);
+	}
+	while (i < nitems * size)
+		arr[i++] = 0;
+	return ((void *)arr);
 }

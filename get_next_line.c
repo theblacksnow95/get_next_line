@@ -6,13 +6,13 @@
 /*   By: emurillo <emurillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 15:20:57 by emurillo          #+#    #+#             */
-/*   Updated: 2024/11/11 17:38:25 by emurillo         ###   ########.fr       */
+/*   Updated: 2024/11/12 15:52:56 by emurillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char	*left_line(char *buffer)
+static char	*left_line(char *buffer)
 {
 	int			i;
 	char		*line;
@@ -20,7 +20,7 @@ char	*left_line(char *buffer)
 	i = 0;
 	while (buffer[i] != '\0' && buffer[i] != '\n')
 		i++;
-	if (buffer[i] == 0 || buffer[1] == 0)
+	if (buffer[i] == '\0' || buffer[1] == '\0')
 		return (NULL);
 	line = ft_substr(buffer, i + 1, ft_strlen(buffer) - i);
 	if (*line == 0)
@@ -28,10 +28,9 @@ char	*left_line(char *buffer)
 		free(line);
 		line = NULL;
 	}
-	line[i + 1] = '\0';
+	buffer[i + 1] = '\0';
 	return (line);
 }
-
 
 static char	*fill_line(int fd, char *buffer, char *new_line)
 {
@@ -41,10 +40,10 @@ static char	*fill_line(int fd, char *buffer, char *new_line)
 	read_bytes = 1;
 	while (read_bytes != '\0')
 	{
-		read_bytes = read(fd, buffer, new_line);
+		read_bytes = read(fd, buffer, BUFFER_SIZE);
 		if (read_bytes < 0)
 			return (NULL);
-		if (read_bytes == 0)
+		else if (read_bytes == 0)
 			break ;
 		buffer[read_bytes] = '\0';
 		if (!new_line)
@@ -62,10 +61,18 @@ static char	*fill_line(int fd, char *buffer, char *new_line)
 char	*get_next_line(int fd)
 {
 	char			*line;
-	static char		*buffer;
-	char			*new_line;
+	char			*buffer;
+	static char		*new_line;
 
-	buffer = (char *)ft_calloc(BUFFER_SIZE + 1, sizeof(char));
+	buffer = (char *)malloc((BUFFER_SIZE + 1) * sizeof(char));
+	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
+	{
+		free(new_line);
+		free(buffer);
+		buffer = NULL;
+		new_line = NULL;
+		return (NULL);
+	}
 	if (!buffer)
 		return (NULL);
 	line = fill_line(fd, buffer, new_line);
@@ -74,7 +81,7 @@ char	*get_next_line(int fd)
 	if (!line)
 		return (NULL);
 	new_line = left_line(line);
-	return (new_line);
+	return (line);
 }
 
 int	main(void)
@@ -88,7 +95,12 @@ int	main(void)
 		return (printf("error 1"));
 	}
 	str = get_next_line(fd);
-	printf("%s\n", str);
-	str = get_next_line(fd);
-	printf("%s\n", str);
+	while (str)
+	{
+		printf("%s\n", str);
+		free(str);
+		str = get_next_line(fd);
+	}
+	close(fd);
+	return (0);
 }
