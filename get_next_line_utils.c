@@ -6,7 +6,7 @@
 /*   By: emurillo <emurillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 15:21:49 by emurillo          #+#    #+#             */
-/*   Updated: 2024/11/12 15:52:59 by emurillo         ###   ########.fr       */
+/*   Updated: 2024/11/12 19:11:45 by emurillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ char	*ft_strdup(char const *string)
 	return (cp);
 }
 
-void	*ft_calloc(size_t nitems, size_t size)
+/* void	*ft_calloc(size_t nitems, size_t size)
 {
 	unsigned char	*arr;
 	size_t			i;
@@ -127,4 +127,4 @@ void	*ft_calloc(size_t nitems, size_t size)
 	while (i < nitems * size)
 		arr[i++] = 0;
 	return ((void *)arr);
-}
+} */

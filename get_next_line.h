@@ -6,7 +6,7 @@
 /*   By: emurillo <emurillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 15:21:43 by emurillo          #+#    #+#             */
-/*   Updated: 2024/11/12 15:21:21 by emurillo         ###   ########.fr       */
+/*   Updated: 2024/11/12 19:04:46 by emurillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,6 @@ char	*ft_strchr(char *str, int search_chr);
 char	*ft_strdup(char const *string);
 char	*ft_substr(char *s, unsigned int start, size_t len);
 void	*ft_calloc(size_t nitems, size_t size);
+char	*get_next_line(int fd);
 
 #endif

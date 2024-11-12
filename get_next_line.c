@@ -6,11 +6,12 @@
 /*   By: emurillo <emurillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 15:20:57 by emurillo          #+#    #+#             */
-/*   Updated: 2024/11/12 15:52:56 by emurillo         ###   ########.fr       */
+/*   Updated: 2024/11/12 19:14:08 by emurillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+
 
 static char	*left_line(char *buffer)
 {
@@ -42,16 +43,17 @@ static char	*fill_line(int fd, char *buffer, char *new_line)
 	{
 		read_bytes = read(fd, buffer, BUFFER_SIZE);
 		if (read_bytes < 0)
+		{
+			free(buffer);
 			return (NULL);
+		}
 		else if (read_bytes == 0)
 			break ;
 		buffer[read_bytes] = '\0';
 		if (!new_line)
 			new_line = ft_strdup("");
-		temp = new_line;
+		temp = ft_strdup(new_line);
 		new_line = ft_strjoin(temp, buffer);
-		free(temp);
-		temp = NULL;
 		if (ft_strchr(buffer, '\n'))
 			break ;
 	}
@@ -84,7 +86,23 @@ char	*get_next_line(int fd)
 	return (line);
 }
 
-int	main(void)
+void	*ft_calloc(size_t nitems, size_t size)
+{
+	unsigned char	*arr;
+	size_t			i;
+
+	i = 0;
+	arr = malloc(nitems * size);
+	if (arr == NULL)
+	{
+		return (NULL);
+	}
+	while (i < nitems * size)
+		arr[i++] = 0;
+	return ((void *)arr);
+}
+
+/* int	main(void)
 {
 	char	*str;
 	int		fd;
@@ -98,9 +116,9 @@ int	main(void)
 	while (str)
 	{
 		printf("%s\n", str);
-		free(str);
 		str = get_next_line(fd);
 	}
 	close(fd);
 	return (0);
-}
+} */
+
