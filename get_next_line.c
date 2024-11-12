@@ -6,11 +6,20 @@
 /*   By: emurillo <emurillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 15:20:57 by emurillo          #+#    #+#             */
-/*   Updated: 2024/11/12 19:14:08 by emurillo         ###   ########.fr       */
+/*   Updated: 2024/11/12 19:29:46 by emurillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+
+/* static char	*ft_free(char *buffer, char *buf)
+{
+	char	*temp;
+
+	temp = ft_strjoin(buffer, buf);
+	free(buffer);
+	return (temp);
+} */
 
 
 static char	*left_line(char *buffer)
@@ -86,22 +95,6 @@ char	*get_next_line(int fd)
 	return (line);
 }
 
-void	*ft_calloc(size_t nitems, size_t size)
-{
-	unsigned char	*arr;
-	size_t			i;
-
-	i = 0;
-	arr = malloc(nitems * size);
-	if (arr == NULL)
-	{
-		return (NULL);
-	}
-	while (i < nitems * size)
-		arr[i++] = 0;
-	return ((void *)arr);
-}
-
 /* int	main(void)
 {
 	char	*str;
@@ -115,7 +108,7 @@ void	*ft_calloc(size_t nitems, size_t size)
 	str = get_next_line(fd);
 	while (str)
 	{
-		printf("%s\n", str);
+		printf("%s", str);
 		str = get_next_line(fd);
 	}
 	close(fd);
