@@ -46,7 +46,7 @@ char *ft_strjoin(char *s1, char *s2) {
 Compile the function as part of your project by linking it with the necessary helper functions.
 
 ```
-gcc -Wall -Wextra -Werror get_next_line.c -o get_next_line
+gcc -Wall -Wextra -Werror get_next_line.c -o get_next_line -D BUFFER_SIZE=42
 ```
 To use `get_next_line`:
 
