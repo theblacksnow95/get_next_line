@@ -69,3 +69,37 @@ int main(void) {
     return 0;
 }
 ```
+
+To use the stdin you can set the `fd = 0`, use this main to access it.
+
+```c
+int	main(void)
+{
+	char	*line;
+
+	while ((line = get_next_line(0)) != NULL)
+	{
+		printf("%s", line);
+		free(line);
+	}
+	return (0);
+}
+```
+
+In the stdin you can only write one line, and the `\n` is taken as charachters, so you can use the next command to write new lines as you like.
+
+```
+ echo -e "hellouhwiufh\nWorld\nwue \n\t\tfgiw\n\negf" | ./get_next_line
+```
+
+output:
+
+```
+hellouhwiufh
+World
+wue 
+                fgiw
+
+egf
+```
+
