@@ -6,7 +6,7 @@
 /*   By: emurillo <emurillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 15:21:49 by emurillo          #+#    #+#             */
-/*   Updated: 2024/11/12 19:11:45 by emurillo         ###   ########.fr       */
+/*   Updated: 2024/11/13 13:24:48 by emurillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ char	*ft_strjoin(char *s1, char *s2)
 	size_t	j;
 
 	if (!s1)
-		s1 = "\0";
+		s1 = "";
 	if (!s2)
 		s2 = "";
 	i = 0;
@@ -112,19 +112,3 @@ char	*ft_strdup(char const *string)
 	cp[i] = '\0';
 	return (cp);
 }
-
-/* void	*ft_calloc(size_t nitems, size_t size)
-{
-	unsigned char	*arr;
-	size_t			i;
-
-	i = 0;
-	arr = malloc(nitems * size);
-	if (arr == NULL)
-	{
-		return (NULL);
-	}
-	while (i < nitems * size)
-		arr[i++] = 0;
-	return ((void *)arr);
-} */

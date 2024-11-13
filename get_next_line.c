@@ -6,21 +6,25 @@
 /*   By: emurillo <emurillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 15:20:57 by emurillo          #+#    #+#             */
-/*   Updated: 2024/11/12 19:36:21 by emurillo         ###   ########.fr       */
+/*   Updated: 2024/11/13 13:24:55 by emurillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-
-/* static char	*ft_free(char *buffer, char *buf)
-{
-	char	*temp;
-
-	temp = ft_strjoin(buffer, buf);
-	free(buffer);
-	return (temp);
-} */
-
+/*
+**
+** Summary:
+** • get_rest extracts the content after a newline from a line and returns it
+**  as a substring.
+** • fill_line reads from the file and appends the read data to line, ensuring
+** that each line is built until a newline or EOF is reached.
+** • get_next_line coordinates reading lines from a file, using the above
+** two functions to assemble and return one line at a time.
+** • main shows how to use get_next_line to read and print lines from a file.
+** Each function is optimized for reading lines from a file using buffers
+** and string functions like ft_strdup, ft_strjoin, and get_rest.
+**
+ */
 
 static char	*left_line(char *buffer)
 {
@@ -30,7 +34,7 @@ static char	*left_line(char *buffer)
 	i = 0;
 	while (buffer[i] != '\0' && buffer[i] != '\n')
 		i++;
-	if (buffer[i] == '\0' || buffer[1] == '\0')
+	if (buffer[i] == '\0' || buffer[i] == '\0')
 		return (NULL);
 	line = ft_substr(buffer, i + 1, ft_strlen(buffer) - i);
 	if (*line == 0)
@@ -61,7 +65,7 @@ static char	*fill_line(int fd, char *buffer, char *new_line)
 		buffer[read_bytes] = '\0';
 		if (!new_line)
 			new_line = ft_strdup("");
-		temp = ft_strdup(new_line);
+		temp = new_line;
 		new_line = ft_strjoin(temp, buffer);
 		if (ft_strchr(buffer, '\n'))
 			break ;
@@ -78,10 +82,10 @@ char	*get_next_line(int fd)
 	buffer = (char *)malloc((BUFFER_SIZE + 1) * sizeof(char));
 	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
 	{
-		free(new_line);
 		free(buffer);
-		buffer = NULL;
+		free(new_line);
 		new_line = NULL;
+		buffer = NULL;
 		return (NULL);
 	}
 	if (!buffer)
@@ -114,4 +118,3 @@ char	*get_next_line(int fd)
 	close(fd);
 	return (0);
 } */
-

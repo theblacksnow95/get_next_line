@@ -6,7 +6,7 @@
 /*   By: emurillo <emurillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 14:40:25 by emurillo          #+#    #+#             */
-/*   Updated: 2024/11/12 15:52:57 by emurillo         ###   ########.fr       */
+/*   Updated: 2024/11/13 13:16:19 by emurillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,19 +74,22 @@ char	*get_next_line(int fd)
 
 	line = NULL;
 	buffer = (char *)malloc(sizeof(char) * BUFFER_SIZE +1);
-	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd , 0 ,0) < 0)
+	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
 		return (NULL);
 	if (!buffer)
 		return (NULL);
 	line = fill_line(fd, buffer, rest);
 	free(buffer);
 	if (!line)
+	{
+		free(line);
 		return (NULL);
+	}
 	rest = get_rest(line);
 	return (line);
 }
 
-int	main(void)
+/* int	main(void)
 {
 	int		fd;
 	char	*line;
@@ -104,4 +107,4 @@ int	main(void)
 		line = get_next_line(fd);
 	}
 	close(fd);
-}
+} */
