@@ -6,7 +6,7 @@
 /*   By: emurillo <emurillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 13:06:36 by emurillo          #+#    #+#             */
-/*   Updated: 2024/11/12 19:00:47 by emurillo         ###   ########.fr       */
+/*   Updated: 2024/11/13 13:53:49 by emurillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ char	*get_next_line(int fd)
 	return (line);
 }
 
-int	main(void)
+/* int	main(void)
 {
 	int		fd;
 	char	*line;
@@ -127,4 +127,4 @@ int	main(void)
 		line = get_next_line(fd);
 	}
 	close(fd);
-}
+} */

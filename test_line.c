@@ -6,7 +6,7 @@
 /*   By: emurillo <emurillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/09 18:36:11 by emurillo          #+#    #+#             */
-/*   Updated: 2024/11/11 17:05:46 by emurillo         ###   ########.fr       */
+/*   Updated: 2024/11/13 13:53:24 by emurillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,7 @@ char	*next_line(char *str)
 	right_line[j] = '\0';
 	free(str);
 	return (right_line);
-
 }
-
 
 char	*get_line(int fd)
 {
@@ -103,7 +101,3 @@ int	main(void)
 	close(fd);
 	return (0);
 }
-
-
-
-
